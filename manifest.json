@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Log Decoder – JWT & Base64",
+  "version": "1.1.1",
+  "description": "Decode JWT, Base64, Base64URL, URL-encoded and JSON log data and display the result.",
+  "permissions": ["activeTab", "scripting", "clipboardWrite", "contextMenus", "commands", "storage"],
+  "action": {
+    "default_title": "Log Decoder",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "decode-selected": {
+      "suggested_key": {
+        "default": "Alt+Shift+D",
+        "mac": "Alt+Shift+D"
+      },
+      "description": "Decode selected log data"
+    }
+  }
+}
