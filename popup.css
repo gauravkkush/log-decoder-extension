@@ -3,7 +3,6 @@ body {
   margin: 0;
   width: 800px;
   min-height: 600px;
-  max-width: 800px;
   background: #0f1117;
   color: #e6e9ef;
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -15,44 +14,22 @@ header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 h1 { margin: 0; font-size: 18px; }
 p { margin: 3px 0 0; color: #8d95a5; font-size: 12px; }
 .icon-btn { border: 0; background: transparent; color: #8d95a5; font-size: 20px; cursor: pointer; }
-.close-btn {
-  border: 0;
-  background: transparent;
-  color: #8d95a5;
-  font-size: 20px;
-  line-height: 1;
-  padding: 4px 6px;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
-.close-btn:hover {
-  color: #ff6b6b;
-  background: #211317;
-}
+.close-btn { border: 0; background: transparent; color: #bd2626; font-size: 20px; cursor: pointer; }
 .icon-btn:hover { color: #fff; }
-.status {
+.status { padding: 2px 2px; border: 2px solid #392b29; border-radius: 8px; color: #aab2c0; background: #151821; font-size: 12px;}
+.privacy-note {
+  margin-top: 14px;
   padding: 10px 12px;
-  border: 1px solid #392b29;
   border-radius: 8px;
-  color: #aab2c0;
-  background: #151821;
   font-size: 12px;
   line-height: 1.5;
-}
-.privacy-note {
-  margin-top: 10px;
-  padding: 9px 10px;
-  border-radius: 7px;
-  font-size: 11px;
-  line-height: 1.5;
-  color: #aab2c0;
-  background: #10131a;
-  border: 1px solid #292e39;
+  color: #5f6368;
+  background: #f8f9fa;
+  border: 1px solid #dadce0;
 }
 
 .privacy-note strong {
-  color: #e6e9ef;
+  color: #202124;
 }
 .success-status { border-color: #235b3d; color: #77d7a0; }
 .error-status { border-color: #71353b; color: #ff9b9b; }
@@ -70,3 +47,85 @@ p { margin: 3px 0 0; color: #8d95a5; font-size: 12px; }
 .hint { margin-top: 14px; color: #626a79; font-size: 11px; text-align: right; }
 kbd { padding: 2px 5px; border: 1px solid #303642; border-radius: 4px; background: #191d25; color: #9da5b3; }
 .hidden { display: none !important; }
+
+
+
+.view-actions {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.view-btn {
+  flex: 1;
+  padding: 9px 10px;
+  border-radius: 7px;
+  border: 1px solid #303642;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.view-btn.primary {
+  background: #1f6feb;
+  color: #fff;
+  border-color: #1f6feb;
+}
+
+.view-btn.primary:hover {
+  background: #388bfd;
+  border-color: #388bfd;
+}
+
+.view-btn.secondary {
+  background: #181c24;
+  color: #e6e9ef;
+}
+
+.view-btn.secondary:hover {
+  background: #232936;
+  border-color: #454c5a;
+}
+
+.standalone, .devtools-panel, .sidepanel {
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 100vh;
+}
+
+.sidepanel main {
+  padding: 14px;
+}
+
+.sidepanel .standalone-input {
+  min-height: 130px;
+}
+
+.standalone-input {
+  width: 100%;
+  min-height: 150px;
+  margin: 12px 0;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid #292e39;
+  border-radius: 8px;
+  background: #10131a;
+  color: #e6e9ef;
+  font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  resize: vertical;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  border-radius: 9px;
+  display: block;
+}

@@ -1,5 +1,6 @@
 let selectedText = "";
 let lastResult = null;
+let activeTabId = null;
 
 const $ = (id) => document.getElementById(id);
 
@@ -17,9 +18,8 @@ function pretty(value) {
 function setStatus(message, kind = "") {
 	const el = $("status");
 	const messageEl = $("statusMessage");
-
-	// Update only the status message so the privacy notice remains visible.
-	messageEl.textContent = message;
+	if (messageEl) messageEl.textContent = message;
+	else el.textContent = message;
 	el.className = `status ${kind}`.trim();
 }
 
@@ -116,6 +116,56 @@ async function copyResult() {
 	setTimeout(() => ($("copy").textContent = "Copy result"), 1200);
 }
 
+async function getCurrentSelection() {
+	try {
+		const [tab] = await chrome.tabs.query({
+			active: true,
+			currentWindow: true,
+		});
+		if (!tab?.id) return "";
+		const result = await chrome.scripting.executeScript({
+			target: { tabId: tab.id },
+			func: () => window.getSelection()?.toString() || "",
+		});
+		return result?.[0]?.result || "";
+	} catch {
+		return "";
+	}
+}
+
+async function openView(view) {
+	const text = selectedText || (await getCurrentSelection());
+
+	await chrome.storage.local.set({
+		pendingDecode: text,
+		pendingDecodeAt: Date.now(),
+		pendingView: view,
+	});
+
+	try {
+		if (view === "sidepanel") {
+			if (!activeTabId) throw new Error("No active tab found.");
+			if (!chrome.sidePanel || typeof chrome.sidePanel.open !== "function") {
+				throw new Error("Side Panel API is unavailable in this browser.");
+			}
+
+			// Do not route this through the service worker. Chrome requires
+			// sidePanel.open() to be called from the user gesture.
+			await chrome.sidePanel.open({ tabId: activeTabId });
+		} else {
+			await chrome.runtime.sendMessage({ type: "OPEN_VIEW", view });
+		}
+
+		window.close();
+	} catch (error) {
+		console.error("Unable to open view:", error);
+		showError(error?.message || "Unable to open the selected view.");
+	}
+}
+
+$("openSidePanel")?.addEventListener("click", () => openView("sidepanel"));
+$("openNewWindow")?.addEventListener("click", () => openView("window"));
+
 $("decode").addEventListener("click", decode);
 $("copy").addEventListener("click", copyResult);
 $("clear").addEventListener("click", () => {
@@ -130,6 +180,17 @@ $("close").addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+	try {
+		const [tab] = await chrome.tabs.query({
+			active: true,
+			currentWindow: true,
+		});
+
+		activeTabId = tab?.id || null;
+	} catch (error) {
+		console.error("Unable to find active tab:", error);
+		activeTabId = null;
+	}
 	const stored = await chrome.storage.local.get([
 		"pendingDecode",
 		"pendingDecodeAt",

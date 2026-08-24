@@ -48,3 +48,21 @@ chrome.commands.onCommand.addListener(async (command) => {
     console.error('Unable to read selection:', error);
   }
 });
+
+
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (!message) return;
+
+  if (message.type === 'OPEN_VIEW' && message.view === 'window') {
+    chrome.windows.create({
+      url: chrome.runtime.getURL('decoder-window.html'),
+      type: 'popup',
+      width: 1100,
+      height: 850
+    }, () => {
+      sendResponse({ ok: !chrome.runtime.lastError, error: chrome.runtime.lastError?.message });
+    });
+    return true;
+  }
+});

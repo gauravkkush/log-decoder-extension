@@ -1,14 +1,12 @@
 <!doctype html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Log Decoder</title>
   <link rel="stylesheet" href="popup.css">
 </head>
-
-<body>
+<body class="sidepanel">
   <main>
     <header>
       <div class="logo"><img src="icons/icon128.png" alt="Log Decoder"></div>
@@ -16,27 +14,16 @@
         <h1>Log Decoder</h1>
         <p>JWT · Base64 · JSON · URL</p>
       </div>
-      <button id="clear" class="icon-btn" title="Clear">Clear</button>
-      <button id="close" class="close-btn" title="Close">X</button>
     </header>
-
-    <div class="view-actions">
-      <button id="openSidePanel" type="button" class="view-btn primary">
-        Open in Side Panel
-      </button>
-      <button id="openNewWindow" type="button" class="view-btn secondary">
-        Open in New Window
-      </button>
-    </div>
 
     <section id="status" class="status">
       <div id="statusMessage">Select a value in your log and click <strong>Decode</strong>.</div>
-
       <div class="privacy-note">
         🔒 <strong>Privacy:</strong> All data is processed locally in your browser.
         Nothing is stored, uploaded, or sent to any external server.
       </div>
     </section>
+
     <div class="controls">
       <label class="toggle">
         <input id="recursive" type="checkbox" checked>
@@ -44,6 +31,8 @@
       </label>
       <button id="decode" class="primary">Decode</button>
     </div>
+
+    <textarea id="input" class="standalone-input" placeholder="Select text in the page, or paste JWT, Base64, JSON, or a complete log line..."></textarea>
 
     <section id="result" class="hidden">
       <div class="result-header">
@@ -67,17 +56,9 @@
     </section>
 
     <section id="error" class="error hidden"></section>
-    <div class="hint">
-      Shortcut:
-      <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd>
-      <span>(Windows/Linux)</span>
-      <b>•</b>
-      <kbd>Option</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd>
-      <span>(macOS)</span>
-    </div>
   </main>
-  <script src="decoder.js"></script>
-  <script src="popup.js"></script>
-</body>
 
+  <script src="decoder.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
 </html>
