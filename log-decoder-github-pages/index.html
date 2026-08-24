@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Log Decoder - decode JWT, Base64, JSON and URL-encoded log data locally in your browser.">
+  <meta name="theme-color" content="#0b1020">
+  <link rel="icon" href="assets/icon128.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Log Decoder — JWT · Base64 · JSON</title>
+</head>
+<body>
+  <div class="bg-glow glow-one"></div>
+  <div class="bg-glow glow-two"></div>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Log Decoder home">
+      <img src="assets/icon128.png" alt="">
+      <div>
+        <strong>Log Decoder</strong>
+        <span>DECODE · BEAUTIFY · DEBUG</span>
+      </div>
+    </a>
+    <div class="header-badge">100% CLIENT-SIDE</div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">JWT · BASE64 · JSON · URL</div>
+      <h1>Decode your logs.<br><span>Nothing leaves your browser.</span></h1>
+      <p>Paste a JWT, Base64 value, JSON payload, URL-encoded value, or an entire log line. Log Decoder extracts and beautifies the useful data locally.</p>
+    </section>
+
+    <section class="workspace">
+      <div class="panel input-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Input</h2>
+            <span>Paste encoded data or a log line</span>
+          </div>
+          <button id="clearInput" class="text-btn" type="button">Clear</button>
+        </div>
+
+        <textarea id="input" spellcheck="false" placeholder="Paste JWT, Base64, JSON, URL-encoded data, or a complete log line..."></textarea>
+
+        <div class="input-footer">
+          <label class="toggle">
+            <input id="recursive" type="checkbox" checked>
+            <span>Decode nested values</span>
+          </label>
+          <div class="input-actions">
+            <button id="sample" class="secondary-btn" type="button">Load sample</button>
+            <button id="decode" class="primary-btn" type="button">Decode <span>⌘ Enter</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel result-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Decoded result</h2>
+            <span id="resultMeta">Waiting for input</span>
+          </div>
+          <button id="copy" class="text-btn" type="button" disabled>Copy result</button>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">{ }</div>
+          <strong>Your decoded data will appear here</strong>
+          <span>JSON is automatically beautified. JWTs are split into header, payload and signature.</span>
+        </div>
+
+        <div id="result" class="result hidden">
+          <div class="detected-row">
+            <span id="detected" class="badge"></span>
+          </div>
+
+          <div id="jwtSections" class="hidden">
+            <div class="section">
+              <div class="section-title">Header</div>
+              <pre id="jwtHeader" class="code-block"></pre>
+            </div>
+            <div class="section">
+              <div class="section-title">Payload</div>
+              <pre id="jwtPayload" class="code-block"></pre>
+            </div>
+            <div class="section">
+              <div class="section-title">Signature</div>
+              <pre id="jwtSignature" class="code-block"></pre>
+            </div>
+          </div>
+
+          <div id="normalResult" class="section">
+            <div class="section-title">Decoded output</div>
+            <pre id="output" class="code-block"></pre>
+          </div>
+        </div>
+
+        <div id="error" class="error hidden"></div>
+      </div>
+    </section>
+
+    <section class="privacy">
+      <div class="privacy-icon">✓</div>
+      <div>
+        <strong>Your data stays here.</strong>
+        <p>Log Decoder has no backend, database, analytics endpoint, or external API. Everything is processed in your browser. Nothing is stored, uploaded, or sent anywhere.</p>
+      </div>
+    </section>
+
+    <section class="features">
+      <div><b>JWT</b><span>Header · Payload · Signature</span></div>
+      <div><b>Base64</b><span>Base64 & Base64URL</span></div>
+      <div><b>JSON</b><span>Beautification & nesting</span></div>
+      <div><b>URL</b><span>URL-decoding support</span></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Log Decoder</span>
+    <span>Runs entirely in your browser</span>
+  </footer>
+
+  <script src="assets/decoder.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
