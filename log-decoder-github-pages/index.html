@@ -1,14 +1,17 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Log Decoder - decode JWT, Base64, JSON and URL-encoded log data locally in your browser.">
+  <meta name="description"
+    content="Log Decoder - decode JWT, Base64, JSON and URL-encoded log data locally in your browser.">
   <meta name="theme-color" content="#0b1020">
   <link rel="icon" href="assets/icon128.png">
   <link rel="stylesheet" href="styles.css">
   <title>Log Decoder — JWT · Base64 · JSON</title>
 </head>
+
 <body>
   <div class="bg-glow glow-one"></div>
   <div class="bg-glow glow-two"></div>
@@ -21,14 +24,15 @@
         <span>DECODE · BEAUTIFY · DEBUG</span>
       </div>
     </a>
-    <div class="header-badge">100% CLIENT-SIDE</div>
+    <div class="header-badge">NOTHING LEAVES YOUR BROWSER;</div>
   </header>
 
   <main class="container">
     <section class="hero">
       <div class="eyebrow">JWT · BASE64 · JSON · URL</div>
-      <h1>Decode your logs.<br><span>Nothing leaves your browser.</span></h1>
-      <p>Paste a JWT, Base64 value, JSON payload, URL-encoded value, or an entire log line. Log Decoder extracts and beautifies the useful data locally.</p>
+      <h1>Decode your logs.</h1>
+      <p>Paste a JWT, Base64 value, JSON payload, URL-encoded value, or an entire log line. Log Decoder extracts and
+        beautifies the useful data locally.</p>
     </section>
 
     <section class="workspace">
@@ -41,7 +45,8 @@
           <button id="clearInput" class="text-btn" type="button">Clear</button>
         </div>
 
-        <textarea id="input" spellcheck="false" placeholder="Paste JWT, Base64, JSON, URL-encoded data, or a complete log line..."></textarea>
+        <textarea id="input" spellcheck="false"
+          placeholder="Paste JWT, Base64, JSON, URL-encoded data, or a complete log line..."></textarea>
 
         <div class="input-footer">
           <label class="toggle">
@@ -59,10 +64,14 @@
         <div class="panel-heading">
           <div>
             <h2>Decoded result</h2>
-            <span id="resultMeta">Waiting for input</span>
+            <span id="resultMeta">Decoded locally</span>
           </div>
-          <button id="copy" class="text-btn" type="button" disabled>Copy result</button>
+          <div class="panel-actions">
+            <button id="fullscreen" class="text-btn" type="button">Full screen</button>
+            <button id="copy" class="text-btn" type="button" disabled>Copy result</button>
+          </div>
         </div>
+
 
         <div id="emptyState" class="empty-state">
           <div class="empty-icon">{ }</div>
@@ -92,7 +101,7 @@
 
           <div id="normalResult" class="section">
             <div class="section-title">Decoded output</div>
-            <pre id="output" class="code-block"></pre>
+            <textarea id="output" class="code-block output-area" readonly spellcheck="false"></textarea>
           </div>
         </div>
 
@@ -104,7 +113,8 @@
       <div class="privacy-icon">✓</div>
       <div>
         <strong>Your data stays here.</strong>
-        <p>Log Decoder has no backend, database, analytics endpoint, or external API. Everything is processed in your browser. Nothing is stored, uploaded, or sent anywhere.</p>
+        <p>Log Decoder has no backend, database, analytics endpoint, or external API. Everything is processed in your
+          browser. Nothing is stored, uploaded, or sent anywhere.</p>
       </div>
     </section>
 
@@ -124,4 +134,5 @@
   <script src="assets/decoder.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>

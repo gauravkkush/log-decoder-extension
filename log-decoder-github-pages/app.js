@@ -3,8 +3,11 @@ let lastResult = null;
 
 function pretty(value) {
   if (typeof value === "string") {
-    try { return JSON.stringify(JSON.parse(value), null, 2); }
-    catch { return value; }
+    try {
+      return JSON.stringify(JSON.parse(value), null, 2);
+    } catch {
+      return value;
+    }
   }
   return JSON.stringify(value, null, 2);
 }
@@ -35,14 +38,28 @@ function render(result) {
   } else {
     $("jwtSections").classList.add("hidden");
     $("normalResult").classList.remove("hidden");
-    $("output").textContent = pretty(result.value);
+    $("output").value = pretty(result.value);
   }
 }
+
+function toggleFullscreen() {
+  const panel = document.querySelector(".result-panel");
+  const button = $("fullscreen");
+
+  if (!panel || !button) return;
+
+  const isFullscreen = panel.classList.toggle("fullscreen");
+  document.body.classList.toggle("fullscreen-active", isFullscreen);
+  button.textContent = isFullscreen ? "Exit full screen" : "Full screen";
+}
+$("fullscreen").addEventListener("click", toggleFullscreen);
 
 function decode() {
   const input = $("input").value;
   if (!input.trim()) {
-    showError("Paste a JWT, Base64 value, JSON, URL-encoded value, or a log line first.");
+    showError(
+      "Paste a JWT, Base64 value, JSON, URL-encoded value, or a log line first.",
+    );
     return;
   }
 
@@ -60,9 +77,14 @@ async function copyResult() {
   let text;
   if (lastResult.type === "JWT") {
     text = [
-      "HEADER", pretty(lastResult.header), "",
-      "PAYLOAD", pretty(lastResult.payload), "",
-      "SIGNATURE", lastResult.signature
+      "HEADER",
+      pretty(lastResult.header),
+      "",
+      "PAYLOAD",
+      pretty(lastResult.payload),
+      "",
+      "SIGNATURE",
+      lastResult.signature,
     ].join("\n");
   } else {
     text = pretty(lastResult.value);
@@ -72,9 +94,11 @@ async function copyResult() {
     await navigator.clipboard.writeText(text);
     const button = $("copy");
     button.textContent = "Copied ✓";
-    setTimeout(() => button.textContent = "Copy result", 1200);
+    setTimeout(() => (button.textContent = "Copy result"), 1200);
   } catch {
-    showError("Clipboard access was blocked by the browser. Copy the output manually.");
+    showError(
+      "Clipboard access was blocked by the browser. Copy the output manually.",
+    );
   }
 }
 
@@ -98,15 +122,21 @@ function loadSample() {
       items: [
         { name: "Paneer Tikka", quantity: 2, price: 349 },
         { name: "Veg Biryani", quantity: 1, price: 299 },
-        { name: "Masala Dosa", quantity: 2, price: 189 }
+        { name: "Masala Dosa", quantity: 2, price: 189 },
       ],
       subtotal: 1375,
       tax: 68.75,
-      total: 1443.75
+      total: 1443.75,
     },
-    payment: { method: "CARD", status: "CAPTURED", transactionId: "TXN-88219401" }
+    payment: {
+      method: "CARD",
+      status: "CAPTURED",
+      transactionId: "TXN-88219401",
+    },
   };
-  $("input").value = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  $("input").value = btoa(
+    unescape(encodeURIComponent(JSON.stringify(payload))),
+  );
   $("resultMeta").textContent = "Sample Base64 loaded";
   $("error").classList.add("hidden");
 }
